@@ -1,6 +1,6 @@
 # typerutils
 
-Typer utility helpers
+[Typer](https://typer.tiangolo.com/) utility helpers
 
 ## Usage
 

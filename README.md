@@ -29,9 +29,9 @@ This repository manages the dev environment as a Nix flake and requires [Nix to 
 ## Publish Package to PyPi
 
 ```shell
-> make distribution
+> make pypi
 ```
 
 ## License
 
-`pydanticutils` is released under the [MIT license](./LICENSE)
+`typerutils` is released under the [MIT license](./LICENSE)

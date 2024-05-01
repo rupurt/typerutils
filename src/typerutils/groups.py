@@ -1,6 +1,7 @@
+from typing import List
 from typer.core import TyperGroup
 
 
 class NaturalOrderGroup(TyperGroup):
-    def list_commands(self, __ctx__):  # pyright: ignore[reportIncompatibleMethodOverride]
-        return self.commands.keys()
+    def list_commands(self, ctx) -> List[str]:
+        return list(self.commands.keys())

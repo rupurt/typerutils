@@ -1,4 +1,7 @@
 # typerutils
+[![ci status](https://github.com/rupurt/typerutils/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/rupurt/typerutils/actions/workflows/ci.yaml)
+![pypi](https://img.shields.io/pypi/v/typerutils.svg)
+![versions](https://img.shields.io/pypi/pyversions/typerutils.svg)
 
 [Typer](https://typer.tiangolo.com/) utility helpers
 

@@ -5,13 +5,13 @@ from typerutils.testing import invoke
 def test_create_app_completion_default_enabled():
     result = invoke(defaultapp, "")
     assert result.exit_code == 0
-    assert "--install-completion" not in result.stdout
+    assert "Install completion for the current shell" not in result.stdout
 
 
 def test_create_app_completion_override():
     result = invoke(overrideapp, "")
     assert result.exit_code == 0
-    assert "--install-completion" in result.stdout
+    assert "Install completion for the current shell" in result.stdout
 
 
 defaultapp = create_app()

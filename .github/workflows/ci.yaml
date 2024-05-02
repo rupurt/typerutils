@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.11"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install dependencies
+        run: make deps.install.requirements/test
+      - name: Format
+        run: make format/check
+      - name: Lint
+        run: make test/lint
+      - name: Typecheck
+        run: make test/typecheck
+      - name: Tests
+        run: make test/run
+      - name: Coverage
+        run: make test/run

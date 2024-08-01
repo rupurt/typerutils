@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "typerutils"
-dynamic = ["version"]
+version = "0.0.1"
 authors = [
   {name="Alex Kwiatkowski", email="alex+pypi@fremantle.io"},
 ]
@@ -26,7 +26,7 @@ Homepage = "https://github.com/rupurt/typerutils"
 Issues = "https://github.com/rupurt/typerutils/issues"
 
 [project.optional-dependencies]
-test = [
+dev = [
   "build >=1.2.1",
   "twine >=5.0.0",
   "ruff >=0.3.4",
@@ -39,9 +39,6 @@ test = [
   "pytest-unordered >=0.6.0",
   "pytest-watcher >=0.4.0",
 ]
-
-[tool.setuptools.dynamic]
-version = {file = "VERSION"}
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.

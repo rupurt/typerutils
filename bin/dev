@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+source $SCRIPTS/common.sh
+
+# @cmd Ensures configuration has been initialized
+# @flag --secrets  Only fetch secrets
+setup() {
+	mkdir -p $LOCAL
+
+	if [[ $argc_secrets -ne 1 ]]; then
+		runp "npm install"
+	fi
+}
+
+# @cmd Ensures code is formatted and that tests pass
+# @flag --format        Run formatters
+# @flag --lint          Run ruff linter
+# @flag --typecheck     Run typechecks
+# @flag --test          Run tests
+# @flag --no-test-odbc  Disable ODBC tests
+# @flag --coverage      Run code coverage report
+check() {
+	flag_count=0
+	[[ $argc_format -eq 1 ]] && flag_count+=1
+	[[ $argc_lint -eq 1 ]] && flag_count+=1
+	[[ $argc_typecheck -eq 1 ]] && flag_count+=1
+	[[ $argc_test -eq 1 ]] && flag_count+=1
+	[[ $argc_coverage -eq 1 ]] && flag_count+=1
+	if [[ $flag_count -eq 0 ]] || [[ $argc_format -eq 1 ]]; then
+		runp "ruff format ."
+	fi
+	if [[ $flag_count -eq 0 ]] || [[ $argc_lint -eq 1 ]]; then
+		runp "ruff format --check ."
+	fi
+	# TODO:
+	# - make typechecks pass so they can be enabled by default
+	# runp "$cmd_typecheck"
+	if [[ $argc_typecheck -eq 1 ]]; then
+		runp "pyright"
+	fi
+	if [[ $flag_count -eq 0 ]] || [[ $argc_test -eq 1 ]]; then
+		runp "pytest -vv --no-header src"
+	fi
+	# TODO:
+	# - use fast boot db2 image to enable coverage by default
+	# runp "$cmd_coverage"
+	if [[ $argc_coverage -eq 1 ]]; then
+		runp "pytest --cov -vv --no-header src"
+	fi
+}
+
+# Parse args and apply them to the specified function
+dev --ensure-devshell "$@"
